@@ -1,4 +1,3 @@
-//importar recursos de otros archivos
 import { IoHome, IoCart, IoPerson } from "react-icons/io5";
 import { ItemMenu } from "./ItemMenu";
 import { MenuWrapper } from "./styles";

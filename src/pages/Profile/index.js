@@ -4,7 +4,51 @@ import { useUser } from "../../contexts/UserContext";
 import { Button } from "../../globalStyles";
 import { Theme } from "../../themes/theme";
 
-//pagina en contruccion
+export const Profile = () => {
+
+  const {user} = useUser();
+
+  //esta linea toca agregarla...
+  const isAuth = false;
+
+  const UserInfo = () => (
+    <div>
+      <h3>{user.name}</h3>
+      <h5>{user.phone}</h5>
+      <p>{user.email}</p>
+      <br />
+      <br />
+      <Button>Cerrar sesión</Button>
+    </div>
+  );
+
+  const UserUnauhtorized = () => (
+    <div>
+      <p>Para acceder a tu perfil, inicia sesión</p>
+      <Link to={"/login"}>
+        <Button bgColor={Theme.alternative}>Iniciar Sesión</Button>
+      </Link>
+      <br /><br /><br />
+      <p>Registra una Cuenta, Aqui...</p>
+      <Link to={"/singup"}>
+        <Button bgColor={Theme.secoundary}>Registrarme</Button>
+      </Link>
+    </div>
+  )
+
+  return (
+    <Page>
+      <h1>Mi Cuenta</h1>
+      { isAuth ? <UserInfo /> : <UserUnauhtorized /> }
+
+      {/* revisar esto....user.isAuthenticated ? <UserInfo /> : <UserUnauhtorized /> */}
+    </Page>
+  );
+};
+
+//______Mi Codigo_________________________
+
+/*
 export const Profile = () => {
 
   const {user} = useUser();
@@ -17,8 +61,8 @@ export const Profile = () => {
       email: 'cardenaslufer@gmail.com',
       avatar: '',
     };
-    */
-    const isAuth = false;
+    
+    //const isAuth = false;
 
   const UserInfo = () => (
     <div>
@@ -39,7 +83,7 @@ export const Profile = () => {
       </Link>
       <br /><br /><br />
       <p>Registra una Cuenta, Aqui...</p>
-      <Link to = { "/Checkin"}>
+      <Link to = { "/Singup"}>
       <Button bgColor={Theme.secoundary}>Registrate</Button>
       </Link>
     </div>
@@ -49,53 +93,11 @@ export const Profile = () => {
     <Page>
       <h1>Mi Cuenta</h1>
       { isAuth ? <UserInfo /> : <UserNoautorizado></UserNoautorizado>}
-      { /*user.isAuthenticated ? <UserInfo /> : <UserNoautorizado />*/}
+
+//para verificar......
+
+      { user.isAuthenticated ? <UserInfo /> : <UserNoautorizado />}
     </Page>
   );
 }
-
-//______Codigo Profe_________________________
-
-/*
-import { Link } from "react-router-dom";
-import { Page } from "../../components/Page";
-import { useUser } from "../../contexts/UserContext";
-import { Button } from "../../globalStyles";
-import { Theme } from "../../themes/theme";
-
-export const Profile = () => {
-
-  const {user} = useUser();
-
-  const UserInfo = () => (
-    <div>
-      <h3>{user.name}</h3>
-      <h5>{user.phone}</h5>
-      <p>{user.email}</p>
-      <br />
-      <br />
-      <Button>Cerrar sesión</Button>
-    </div>
-  );
-
-  const UserUnauhtorized = () => (
-    <div>
-      <p>Para acceder a tu perfil, inicia sesión</p>
-      <Link to={"/login"}>
-        <Button bgColor={Theme.alternative}>Iniciar Sesión</Button>
-      </Link>
-      <br /><br /><br />
-      <p>¿No tienes una cuenta?, Regístrate acá</p>
-      <Link to={"/signup"}>
-        <Button bgColor={Theme.secoundary}>Registrarme</Button>
-      </Link>
-    </div>
-  )
-
-  return (
-    <Page>
-      <h1>Mi Cuenta</h1>
-      { user.isAuthenticated ? <UserInfo /> : <UserUnauhtorized /> }
-    </Page>
-  );
-};*/
+*/

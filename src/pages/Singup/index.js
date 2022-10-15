@@ -9,7 +9,7 @@ import {
 } from "../../globalStyles";
 
 //pagina solicita datos, crea usuario.
-export const Checkin = () => {
+export const Singup = () => {
 
     const {register, handleSubmit, formState: {errors, isValid}} = useForm({ mode: "onChange"});
 
