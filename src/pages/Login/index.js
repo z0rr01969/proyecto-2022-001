@@ -12,20 +12,25 @@ import { useUser } from "../../contexts/UserContext";
 
 //pagina de logeo input-correo y contraseña -validados con boton de ingreso
 export const Login = () => {
-
-  const {register, handleSubmit, reset, formState: {errors, isValid}} = useForm({ mode: "onChange"});
+  const {
+    register, 
+    handleSubmit, 
+    reset, 
+    formState: {errors, isValid},
+  } = useForm({ mode: "onChange"});
 
   const {setAuthenticate, setUserInfo} = useUser();
   const navigate = useNavigate();
 
   const onSubmitLogin = (data) => {
     console.log("data", data);
-    if (data.email === "cardenaslufer@gmail.com" && data.password === "1969") {
+    if (data.email === "cardenaslufer@gmail.com" && data.password === "196907") {
       setAuthenticate(true);
       setUserInfo({ name: "Fernando", email: "cardenaslufer@gmail.com", phone: "3107911608" });
       reset();
         setTimeout(() => {
-          navigate("/");
+          //navigate("/");
+          navigate("/products/:idShop");
         }, 2000);
     } else {
       alert("Credenciales NO Validas");

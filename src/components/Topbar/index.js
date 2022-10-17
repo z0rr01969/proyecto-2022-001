@@ -17,7 +17,7 @@ return(
       <img src="/logoapp.png" alt="logo" />
     </LogoWrapper>
     <CartWrapper>
-      <Link to={'/Checkin'}>
+      <Link to={'/Checkout'}>
         <IoCart />
       </Link>
       {
