@@ -7,7 +7,7 @@ import { useState } from "react";
 //import { useContext } from "react";
 import { useCart } from "../../contexts/CartContext";
 
-const PRODUCTS = [
+export const PRODUCTS = [
   {
     id: 1,
     name: "Leche colanta x1",
@@ -19,7 +19,6 @@ const PRODUCTS = [
     name: "Huevos x 30",
     price: 20000,
     image: "/huevos-30.jpg",
-    //image: "MAKRO-01-1024x648.jpg", //directo de public
   },
   {
     id: 3,
@@ -29,39 +28,39 @@ const PRODUCTS = [
   },
   {
     id: 4,
-    name: "Huevos x 30",
+    name: "Azucar x Lb",
     price: 20000,
-    image: "/huevos-30.jpg",
+    image: "/azucar.jpg",
   },
   {
     id: 5,
-    name: "Quesito colanta",
+    name: "Sal x Lb",
     price: 9000,
-    image: "/Quesito-Colanta.jpg",
+    image: "/sal.png",
   },
   {
     id: 6,
-    name: "Huevos x 30",
+    name: "Arroz x Lb",
     price: 20000,
-    image: "/huevos-30.jpg",
+    image: "/arroz.jpg",
   },
   {
     id: 7,
-    name: "Quesito colanta",
+    name: "Cafe x Lb",
     price: 9000,
-    image: "/Quesito-Colanta.jpg",
+    image: "/cafe.png",
   },
   {
     id: 8,
-    name: "Huevos x 30",
+    name: "Desodorante",
     price: 20000,
-    image: "/huevos-30.jpg",
+    image: "/desodorante.png",
   },
   {
     id: 9,
-    name: "Quesito colanta",
+    name: "Jabon Baño",
     price: 9000,
-    image: "/Quesito-Colanta.jpg",
+    image: "/jabon.jpg",
   },
 ]
 
@@ -84,8 +83,8 @@ export const Products = () => {
   return (
     <Page>
       <p>Shop ID: {idShop}</p>
-      <Search listener={{onSearchProducts}}/>
-      <p>{searchProducts}</p>
+      <Search listener={onSearchProducts}/>
+      <p>filtro: {searchProducts}</p>
       <ProductGrid>
       {
         PRODUCTS.map((item, key) => <Product 

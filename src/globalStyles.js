@@ -64,6 +64,7 @@ export const Button = styled.button`
     cursor: pointer;
     font-size: 0.9em;
     opacity: 0.9;
+    //transform: translateY(2px);
     &:hover{
         opacity: 1;
     }
@@ -72,4 +73,8 @@ export const Button = styled.button`
         color: ${Theme.primary_text};
         cursor: not-allowed;
     }
+    /*
+    &:onClick{
+        transform: translateY(2px);
+    }*/
 `;

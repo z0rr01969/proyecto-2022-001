@@ -11,6 +11,7 @@ export const CardShopWrapper = styled(Link)`
     border-radius: 6px;
     display: flex;
     text-decoration: none;
+    //border-color: red;
     &:hover {
         background-color: #f6f6f6;
         -webkit-box-shadow: 2px 1px 14px 0px rgba(99,99,99,1);

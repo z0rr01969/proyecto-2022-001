@@ -1,19 +1,17 @@
 import { createContext, useState, useContext } from "react";
 
-const defaultState = {
-    quantity: 0
-}; 
+const defaultState = { quantity: 0 }; 
 const CartContext = createContext(defaultState);
 
 export const CartContextStore = (props) => {
     
     const [cart, setCart] = useState(defaultState);
-
     const addItemToCart = (idProduct) => {
 
         //esto NO se hace
         //cart.quantity = cart.quantity + 1;
         //setcart (cart)
+        //suma de elementos seleccionados
         setCart((prevState) => ({
             ...prevState,
             quantity: prevState.quantity + 1,

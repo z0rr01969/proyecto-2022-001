@@ -8,6 +8,7 @@ export const ProductWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  //border-color: red;
   p {
     margin: 6px 0;
     font-weight: 300;
