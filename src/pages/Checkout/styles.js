@@ -20,7 +20,7 @@ export const CartGrid = styled.section`
     font-weight: 400;
   }
 `;
-
+ 
 export const ItemCartWrapper = styled.div`
     width: 400px;
     border-left: 1px solid #ccc;

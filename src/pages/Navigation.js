@@ -5,7 +5,7 @@ import { PageNotFound } from "./PageNotFound";
 import { Singup } from "./Singup";
 import { Products } from "./Products";
 import { Profile } from "./Profile";
-import { Checkout } from "./Checout";
+import { Checkout } from "./Checkout";
 
 //funcion componente de navegacion - ojo rutas entre paginas
 export const Navigation = () => (

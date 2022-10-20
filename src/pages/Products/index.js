@@ -23,31 +23,31 @@ export const PRODUCTS = [
   {
     id: 3,
     name: "Quesito colanta",
-    price: 9000,
+    price: 10000,
     image: "/Quesito-Colanta.jpg",
   },
   {
     id: 4,
     name: "Azucar x Lb",
-    price: 20000,
+    price: 3000,
     image: "/azucar.jpg",
   },
   {
     id: 5,
     name: "Sal x Lb",
-    price: 9000,
+    price: 2000,
     image: "/sal.png",
   },
   {
     id: 6,
     name: "Arroz x Lb",
-    price: 20000,
+    price: 2000,
     image: "/arroz.jpg",
   },
   {
     id: 7,
     name: "Cafe x Lb",
-    price: 9000,
+    price: 15000,
     image: "/cafe.png",
   },
   {
@@ -59,7 +59,7 @@ export const PRODUCTS = [
   {
     id: 9,
     name: "Jabon Baño",
-    price: 9000,
+    price: 3000,
     image: "/jabon.jpg",
   },
 ]
@@ -68,7 +68,7 @@ export const Products = () => {
 
   const { idShop } = useParams();
   const [searchProducts, setSearchProducts] = useState("");
-  const {addItemToCart} = useCart(); //useContext(CartContext);
+  const { addItemToCart } = useCart(); //useContext(CartContext);
 
   const addToCartHandler = (idProduct) => {
     //alert(idProduct);
@@ -83,17 +83,17 @@ export const Products = () => {
   return (
     <Page>
       <p>Shop ID: {idShop}</p>
-      <Search listener={onSearchProducts}/>
+      <Search listener={onSearchProducts} />
       <p>filtro: {searchProducts}</p>
-      <ProductGrid>
-      {
-        PRODUCTS.map((item, key) => <Product 
-        key={key} {...item} 
-        onPress={addToCartHandler}
-        hasAction={true}
-        textAction="Agregar" /> )
-      }
-      </ProductGrid>
+        <ProductGrid>
+          {
+            PRODUCTS.map((item, key) => <Product
+              key={key} {...item}
+              onPress={addToCartHandler}
+              hasAction={true}
+              textAction="Agregar" />)
+          }
+        </ProductGrid>
     </Page>
   );
 }

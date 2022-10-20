@@ -1,10 +1,10 @@
 import { createContext, useState, useContext } from "react";
 
-const defaultState = { quantity: 0 }; 
+const defaultState = { quantity: 0 };
 const CartContext = createContext(defaultState);
 
 export const CartContextStore = (props) => {
-    
+
     const [cart, setCart] = useState(defaultState);
     const addItemToCart = (idProduct) => {
 
@@ -15,11 +15,11 @@ export const CartContextStore = (props) => {
         setCart((prevState) => ({
             ...prevState,
             quantity: prevState.quantity + 1,
-          }));
+        }));
     }
 
-    return(
-        <CartContext.Provider value={{cart, addItemToCart}}>
+    return (
+        <CartContext.Provider value={{ cart, addItemToCart }}>
             {/*esta linea trae lo que ya estaba en la pagina*/}
             {props.children}
         </CartContext.Provider>

@@ -1,28 +1,55 @@
 import { CartGrid, ItemCartWrapper } from "./styles";
-import { Products } from "../Products";
+import { Products, PRODUCTS } from "../Products/index";
 import { Page } from "../../components/Page";
-import { createContext, useState, useContext } from "react";
 import { useCart, CartContextStore } from "../../contexts/CartContext";
+import { createContext, useState, useContext } from "react";
+import { Button } from "../../globalStyles";
 //Revisar los import
 
 
-export const Checkout = (idProduct, name, Precio, PRODUCTS) => {
+export const Checkout = (props) => {
 
-    //const [cart, setCart] = useState(defaultState);
-    //const defaultState = { quantity: 0 };
-    //const CartContext = createContext(defaultState);
-    //const { addItemToCart } = useCart(); //useContext(CartContext);
-    //const addToCartHandler = (idProducts) => {
-    //    addItemToCart(idProducts);
-    //}
+    return <Products />
 
-    return (
-              
-        <Products />
- 
-    );
+    //verifica que sale por consola
+    console.warn(PRODUCTS);
+/*  
+    const {
+        isEmpty,
+        totalItems,
+        cartTotal,
+        updateItemQuantity,
+        removeItem,
+        emptyCart,
+    } = PRODUCTS(props);
 
-    /*
+    if (isEmpty) return <h1 className="text-center">Carrito de Compras Vacio</h1> 
+    
+        return (
+            <Page>
+            {/*<Products key={key} {...item} onPress={addToCartHandler} hasAction={true} textAction="Agregar" /> */}/*
+            <div className="row justify-content-center">
+            <table>
+                <tbody>
+                    {PRODUCTS.map(({ key }, { ...PRODUCTS })=>{
+                        return(
+                            <tr key={key}>
+                                <td>
+                                    <img src={PRODUCTS.image} />
+                                </td>
+                                <td>{PRODUCTS.name}</td>
+                                <td>{PRODUCTS.price}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+            </div>
+            </Page>
+        );
+
+    //<Products />
+
         //const { idProducts } = useParams();
         return (
         <CartGrid to={`../products/${idProducts}`}>
@@ -34,12 +61,5 @@ export const Checkout = (idProduct, name, Precio, PRODUCTS) => {
                 <p>Precio{location}</p>
             </ItemCartWrapper>
         </CartGrid>
-        );*/
-
-}
-
-/*
-export const Checkout = () => (
-    <h3>Página resumen de productos</h3>
-)
-*/
+        );
+}*/
