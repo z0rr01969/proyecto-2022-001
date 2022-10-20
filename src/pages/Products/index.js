@@ -13,7 +13,7 @@ export const PRODUCTS = [
     name: "Leche colanta x1",
     price: 5000,
     image: "/leche-colanta.jpg",
-  },
+  }, 
   {
     id: 2,
     name: "Huevos x 30",
