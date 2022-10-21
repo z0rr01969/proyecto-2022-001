@@ -1,100 +1,96 @@
 import { CartGrid, ItemCartWrapper } from "./styles";
 import { Products, PRODUCTS } from "../Products/index";
-import { Page } from "../../components/Page";
-import { useCart, CartContextStore } from "../../contexts/CartContext";
-import { createContext, useState, useContext } from "react";
-import { Button } from "../../globalStyles";
+import { Page } from "../../components/Page/index";
+import { useCart } from "../../contexts/CartContext";
+import { useState } from "react";
+import {
+    Button,
+    FormControl,
+    FormControlLabel,
+    FormControlActions,
+    FormControlInput,
+} from "../../globalStyles";
+import { useForm } from "react-hook-form"
 //Revisar los import
 
 
 export const Checkout = () => {
 
+    //prueba por consola si se muestra el array de productos
     console.warn(PRODUCTS);
 
-    const Carrito = [];
-    const [searchProducts, setSearchProducts] = useState("");
+    //posibles variables usadas en el cuerpo del codigo
+    
+    const { addCart }  = useForm({ mode: "onChange" });
     const { addItemToCart } = useCart(); //useContext(CartContext);
     const addToCartHandler = (idProduct) => {
-        //alert(idProduct);
-        //se agrega la variable para que añada la cantidad
         addItemToCart(idProduct);
-      }
-      
+    }
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onChange" });
+    const onSubmitLogin = (data) => { console.log('data', data);}
+
+    //retorno de la funcion
     return (
         <Page>
-            <>
+
+            {/* codigo para tomar los productos seleccionados y mostrados aqui */}
+
             <ItemCartWrapper>
                 {
                     <Products {...PRODUCTS}
-                    img={PRODUCTS.image}
-                    onPress={addToCartHandler}
-                    hasAction={true} />
-                    
+                        img={PRODUCTS.image}
+                        onPress={addCart}
+                        hasAction={true} />
                 }
+                <h3>Total precio</h3>
             </ItemCartWrapper>
+
+            {/* datos para el pedido y envio de productos */}
             <ItemCartWrapper>
-                <h3>Imagen</h3>
-                <p>Descripcion</p>
-                <p>Precio</p>
+                <h1>Registrar un Pedido</h1>
+                <form onSubmit={handleSubmit(onSubmitLogin)}>
+
+                    <FormControl>
+                        <FormControlLabel>Nombres y Apellidos</FormControlLabel>
+                        <FormControlInput type="text"
+                            {...register("text", { required: true, pattern: /[A-Za-z]/ })} />
+                        {errors.text?.type === "required" &&
+                            (<span>Ingrese un Nombre</span>)
+                        }
+                        {errors.text?.type === "pattern" &&
+                            (<span>Ingrese solo letras</span>)
+                        }
+                    </FormControl>
+
+                    <FormControl>
+                        <FormControlLabel>Direccion de Envio</FormControlLabel>
+                        <FormControlInput type="text1"
+                            {...register("text1", { required: true, pattern: /[A-Za-z] [0-9]/ })} />
+                        {errors.text1?.type === "required" &&
+                            (<span>Este campo es obligatorio</span>)
+                        }
+                        {errors.text1?.type === "pattern" &&
+                            (<span>Ingrese una Direccion valida</span>)
+                        }
+                    </FormControl>
+
+                    <FormControl>
+                        <FormControlLabel>Numero Telefonico</FormControlLabel>
+                        <FormControlInput type="text2"
+                            {...register("text2", { required: true, pattern: /[0-9] {10}/ })} />
+                        {errors.text2?.type === "required" &&
+                            (<span>Este campo es obligatorio</span>)
+                        }
+                        {errors.text2?.type === "pattern" &&
+                            (<span>Ingrese solo Numeros</span>)
+                        }
+                    </FormControl>
+
+                    <FormControlActions>
+                        <Button disabled={!isValid} type="submit">Registrar</Button>
+                    </FormControlActions>
+                </form>
             </ItemCartWrapper>
-            </>
-            <CartGrid>
-                <h3>bonito</h3>
-            </CartGrid>
         </Page>
     );
 }
-
-
-    //verifica que sale por consola
-
-/*  
-    const {
-        isEmpty,
-        totalItems,
-        cartTotal,
-        updateItemQuantity,
-        removeItem,
-        emptyCart,
-    } = PRODUCTS(props);
-
-    if (isEmpty) return <h1 className="text-center">Carrito de Compras Vacio</h1> 
-    
-        return (
-            <Page>
-            {/*<Products key={key} {...item} onPress={addToCartHandler} hasAction={true} textAction="Agregar" /> *//*
-<div className="row justify-content-center">
-<table>
-<tbody>
-{PRODUCTS.map(({ key }, { ...PRODUCTS })=>{
-return(
-    <tr key={key}>
-        <td>
-            <img src={PRODUCTS.image} />
-        </td>
-        <td>{PRODUCTS.name}</td>
-        <td>{PRODUCTS.price}</td>
-    </tr>
-)
-})}
-</tbody>
-</table>
-</div>
-</Page>
-);
-
-//<Products />
-
-//const { idProducts } = useParams();
-return (
-<CartGrid to={`../products/${idProducts}`}>
-<CardShopImage>
-<img src={"/products/:idShop/${idProducts}"} alt={name} />
-</CardShopImage>
-<ItemCartWrapper>
-<h3>Nombre {name}</h3>
-<p>Precio{location}</p>
-</ItemCartWrapper>
-</CartGrid>
-);
-}*/

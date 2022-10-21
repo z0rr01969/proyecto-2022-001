@@ -54,14 +54,14 @@ export const Singup = () => {
           <FormControlInput type="text" 
           {...register("text",{required: true, pattern: /[0-9] {10}/})}/>
           { errors.text?.type === "required" && 
-          (<span>Numero Valido</span>)
+          (<span>Este campo es obligatorio</span>)
           }
           { errors.text?.type === "pattern" && 
           (<span>Ingrese solo Numeros</span>)
           }
       </FormControl>
         
-        <FormControl>
+      <FormControl>
           <FormControlLabel>Contraseña</FormControlLabel>
           <FormControlInput type="password" 
           {...register("password",{required: true})}/>

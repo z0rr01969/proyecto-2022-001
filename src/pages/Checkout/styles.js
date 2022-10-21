@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Theme } from "../../themes/theme";
 
 export const CartGrid = styled.section`
     margin: 16px 0;
@@ -27,16 +26,10 @@ export const ItemCartWrapper = styled.div`
         font-weight: 300;
         font-size: 0.85em;
     };
+    h3 {
+      display: flex;
+      text-align: end;
+      position: unset;
+      flex-direction: column-reverse;
+    }
 `;
-
-/*width: 400px;
-    border-left: 1px solid #ccc;
-    //height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: left;
-    flex: 1;
-    border: 1px solid red;
-    transition:all .7s ease-in-out;*/
-
