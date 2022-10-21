@@ -4,7 +4,6 @@ import { Product } from "../../components/Product";
 import { Search } from "../../components/Search";
 import { ProductGrid } from "./styles";
 import { useState } from "react";
-//import { useContext } from "react";
 import { useCart } from "../../contexts/CartContext";
 
 export const PRODUCTS = [

@@ -2,7 +2,10 @@ import { CartGrid, ItemCartWrapper } from "./styles";
 import { Products, PRODUCTS } from "../Products/index";
 import { Page } from "../../components/Page/index";
 import { useCart } from "../../contexts/CartContext";
-import { useState } from "react";
+import { currencyFormat } from "../../utils/CurrencyFormat";
+import { Theme } from "../../themes/theme";
+import { ProductGrid } from "../Products/styles";
+import { Product } from "../../components/Product";
 import {
     Button,
     FormControl,
@@ -13,36 +16,46 @@ import {
 import { useForm } from "react-hook-form"
 //Revisar los import
 
-
 export const Checkout = () => {
 
     //prueba por consola si se muestra el array de productos
-    console.warn(PRODUCTS);
+    //console.warn(addProduct);
 
     //posibles variables usadas en el cuerpo del codigo
-    
-    const { addCart }  = useForm({ mode: "onChange" });
     const { addItemToCart } = useCart(); //useContext(CartContext);
     const addToCartHandler = (idProduct) => {
         addItemToCart(idProduct);
     }
     const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onChange" });
-    const onSubmitLogin = (data) => { console.log('data', data);}
+    const onSubmitLogin = (data) => { console.log('data', data); }
 
     //retorno de la funcion
     return (
         <Page>
 
             {/* codigo para tomar los productos seleccionados y mostrados aqui */}
-
             <ItemCartWrapper>
-                {
-                    <Products {...PRODUCTS}
-                        img={PRODUCTS.image}
-                        onPress={addCart}
-                        hasAction={true} />
-                }
-                <h3>Total precio</h3>
+                <ProductGrid listener={onclick}>
+                    {
+                        PRODUCTS.map((item, key) => <Product onClick={Products.name}
+                            key={key} {...item}
+                            onPress={addToCartHandler}
+                            hasAction={true}
+                        /> )
+                    }
+                </ProductGrid>
+                <td>
+                    <tr>
+                        <div>
+                            <h3>I. V. A. ..-(19%)</h3>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div>
+                            <h3>Precio TOTAL...</h3>
+                        </div>
+                    </tr>
+                </td>
             </ItemCartWrapper>
 
             {/* datos para el pedido y envio de productos */}
@@ -94,3 +107,14 @@ export const Checkout = () => {
         </Page>
     );
 }
+/*
+export const addProduct = ({ id, name, price, image, onPress, hasAction }) => (
+    <>
+        <img src={Products.image} alt={name} width="50px" />
+        <p>{Products.name}</p>
+        <h6>{currencyFormat(Products.price)}</h6>
+        {
+            hasAction && <Button onClick={e => onPress(id)} bgColor={Theme.secoundary} >{Products.image}, {Products.price} </Button>
+        }
+    </>
+);*/

@@ -1,20 +1,26 @@
 import styled from "styled-components";
 
+
 export const CartGrid = styled.section`
-    margin: 16px 0;
-    border: 1px solid #ccc;
-    padding: 6px;
-    border-radius: 6px;
-    display: flex;
-    border-color: red;
-    flex-direction: row;
+  
+  width: 100%;
+  margin: 6px 8px;
+  border: 1px solid #ccc;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-color: red;
   p {
+    width: 100%;
     margin: 6px 0;
     font-weight: 300;
   }
 `;
 
 export const ItemCartWrapper = styled.div`
+    flex: 1;
+    width: 100%;
     margin: 16px 0;
     border: 1px solid #ccc;
     padding: 6px;
@@ -31,5 +37,5 @@ export const ItemCartWrapper = styled.div`
       text-align: end;
       position: unset;
       flex-direction: column-reverse;
-    }
+    };
 `;
