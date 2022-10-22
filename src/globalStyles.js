@@ -15,10 +15,14 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const FormControl = styled.section`
+    width: auto;
     display: flex;
     flex-direction: column;
     margin: 6px 0;
+    align-items: center;
+    border-color: red;
     span {
+        width: auto;
         color: red;
         font-weight: 700;
         font-size: 0.78em;

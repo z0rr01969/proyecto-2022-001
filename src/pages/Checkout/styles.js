@@ -2,11 +2,10 @@ import styled from "styled-components";
 
 
 export const CartGrid = styled.section`
-  
   width: 100%;
-  margin: 6px 8px;
+  margin: 16px 0;
   border: 1px solid #ccc;
-  padding: 28px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,20 +18,30 @@ export const CartGrid = styled.section`
 `;
 
 export const ItemCartWrapper = styled.div`
-    flex: 1;
     width: 100%;
-    margin: 16px 0;
+    margin: 10px 0;
     border: 1px solid #ccc;
-    padding: 6px;
-    border-radius: 6px;
+    padding: 10px;
+    border-radius: 26px;
     display: flex;
     border-color: red;
-    flex-direction: row;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
     p {
         font-weight: 300;
         font-size: 0.85em;
     };
+    h2 {
+      width: 30%;
+      display: flex;
+      text-align: end;
+      position: unset;
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: center;
+    };
     h3 {
+      width: 100%;
       display: flex;
       text-align: end;
       position: unset;

@@ -1,11 +1,11 @@
 import { CartGrid, ItemCartWrapper } from "./styles";
-import { Products, PRODUCTS } from "../Products/index";
+import { Products, PRODUCTS } from "../../pages/Products/index";
 import { Page } from "../../components/Page/index";
 import { useCart } from "../../contexts/CartContext";
 import { currencyFormat } from "../../utils/CurrencyFormat";
 import { Theme } from "../../themes/theme";
-import { ProductGrid } from "../Products/styles";
-import { Product } from "../../components/Product";
+import { Product } from "../../components/Product/index";
+import { ProductGrid } from "../../pages/Products/styles";
 import {
     Button,
     FormControl,
@@ -19,22 +19,25 @@ import { useForm } from "react-hook-form"
 export const Checkout = () => {
 
     //prueba por consola si se muestra el array de productos
-    //console.warn(addProduct);
+    console.warn(PRODUCTS);
 
     //posibles variables usadas en el cuerpo del codigo
     const { addItemToCart } = useCart(); //useContext(CartContext);
     const addToCartHandler = (idProduct) => {
         addItemToCart(idProduct);
     }
-    const onClickListener = ( onClick ) => {
-        if (addToCartHandler > 0) {
-            PRODUCTS.map((item, key) => <Product
-              key={key} {...item}
-              onPress={addToCartHandler}
-              hasAction={true}
-              />)
-        }
-    }
+
+    const onClickListener = ({ id, name, price, image, onPress, hasAction }) => (
+        <Product>
+            <img src={PRODUCTS.image} alt={PRODUCTS.name} width="50px" />
+            <p>{PRODUCTS.name}</p>
+            <h6>{currencyFormat(PRODUCTS.price)}</h6>
+            {
+                hasAction && <Button onClick={e => onPress(id)} bgColor={Theme.secoundary} >X</Button>
+            }
+        </Product>
+    );
+
     const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onChange" });
     const onSubmitLogin = (data) => { console.log('data', data); }
 
@@ -44,79 +47,99 @@ export const Checkout = () => {
             {/* codigo para tomar los productos seleccionados y mostrados aqui */}
             <ItemCartWrapper>
                 <Product onClick={onClickListener} />
-                
-                    {/*{
-                        PRODUCTS.map((item, key) => <Product onClick={Products.name}
-                            key={key} {...item}
-                            onPress={addToCartHandler}
-                            hasAction={true}
-                        />
-                         )
-                    }*/}
-                <td>
-                    <tr>
-                        <div>
-                            <h3>I. V. A. ..-(19%)</h3>
-                        </div>
-                    </tr>
-                    <tr>
-                        <div>
-                            <h3>Precio TOTAL...</h3>
-                        </div>
-                    </tr>
-                </td>
             </ItemCartWrapper>
 
             {/* datos para el pedido y envio de productos */}
             <ItemCartWrapper>
-                <h1>Registrar un Pedido</h1>
+                <h2>Registrar un Pedido</h2>
                 <form onSubmit={handleSubmit(onSubmitLogin)}>
+                    <CartGrid>
+                        <FormControl>
+                            <FormControlLabel>Nombres y Apellidos</FormControlLabel>
+                            <FormControlInput type="text"
+                                {...register("text", { required: true, pattern: /[A-Za-z]/ })} />
+                            {errors.text?.type === "required" &&
+                                (<span>Ingrese un Nombre</span>)
+                            }
+                            {errors.text?.type === "pattern" &&
+                                (<span>Ingrese solo letras</span>)
+                            }
+                        </FormControl>
 
-                    <FormControl>
-                        <FormControlLabel>Nombres y Apellidos</FormControlLabel>
-                        <FormControlInput type="text"
-                            {...register("text", { required: true, pattern: /[A-Za-z]/ })} />
-                        {errors.text?.type === "required" &&
-                            (<span>Ingrese un Nombre</span>)
-                        }
-                        {errors.text?.type === "pattern" &&
-                            (<span>Ingrese solo letras</span>)
-                        }
-                    </FormControl>
+                        <FormControl>
+                            <FormControlLabel>Direccion de Envio</FormControlLabel>
+                            <FormControlInput type="text1"
+                                {...register("text1", { required: true, pattern: /[A-Za-z] [0-9]/ })} />
+                            {errors.text1?.type === "required" &&
+                                (<span>Este campo es obligatorio</span>)
+                            }
+                            {errors.text1?.type === "pattern" &&
+                                (<span>Ingrese una Direccion valida</span>)
+                            }
+                        </FormControl>
 
-                    <FormControl>
-                        <FormControlLabel>Direccion de Envio</FormControlLabel>
-                        <FormControlInput type="text1"
-                            {...register("text1", { required: true, pattern: /[A-Za-z] [0-9]/ })} />
-                        {errors.text1?.type === "required" &&
-                            (<span>Este campo es obligatorio</span>)
-                        }
-                        {errors.text1?.type === "pattern" &&
-                            (<span>Ingrese una Direccion valida</span>)
-                        }
-                    </FormControl>
-
-                    <FormControl>
-                        <FormControlLabel>Numero Telefonico</FormControlLabel>
-                        <FormControlInput type="text2"
-                            {...register("text2", { required: true, pattern: /[0-9] {10}/ })} />
-                        {errors.text2?.type === "required" &&
-                            (<span>Este campo es obligatorio</span>)
-                        }
-                        {errors.text2?.type === "pattern" &&
-                            (<span>Ingrese solo Numeros</span>)
-                        }
-                    </FormControl>
-
-                    <FormControlActions>
-                        <Button disabled={!isValid} type="submit">Registrar</Button>
-                    </FormControlActions>
+                        <FormControl>
+                            <FormControlLabel>Numero Telefonico</FormControlLabel>
+                            <FormControlInput type="text2"
+                                {...register("text2", { required: true, pattern: /[0-9] {10}/ })} />
+                            {errors.text2?.type === "required" &&
+                                (<span>Este campo es obligatorio</span>)
+                            }
+                            {errors.text2?.type === "pattern" &&
+                                (<span>Ingrese solo Numeros</span>)
+                            }
+                        </FormControl>
+               
+                        <FormControlActions>
+                            <Button disabled={!isValid} type="submit">Registrar</Button>
+                        </FormControlActions>
+                    </CartGrid>
                 </form>
+                <FormControl>
+                    <CartGrid>
+                        <td>
+                            <tr>
+                                <div>
+                                    <h3>I. V. A. ..-(19%)= (Valor !)</h3>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div>
+                                    <h3>Precio TOTAL...= (Valor !)</h3>
+                                </div>
+                            </tr>
+                        </td>
+                    </CartGrid>
+                </FormControl>
             </ItemCartWrapper>
         </Page>
     );
 }
-/*
+
+/* ENSAYOS DE CODIGO:
+
+****************************************************************************************
+
+    /*
+        const onClickListener = (onClick) => {
+            if (addToCartHandler > 0) {
+            <Product>
+                <img src={image} alt={name} width="50px" />
+                <p>{name}</p>
+                <h6>{currencyFormat(price)}</h6>
+                {
+                    hasAction && <Button onClick={e => onPress(id)} bgColor={Theme.secoundary} >{textAction} </Button>
+                }
+            </Product>
+            PRODUCTS.map((item, key) => <Product
+              key={key} {...item}
+              onPress={addToCartHandler}
+              hasAction={true}
+              />)
+
+****************************************************************************************
+
+
 export const addProduct = ({ id, name, price, image, onPress, hasAction }) => (
     <>
         <img src={Products.image} alt={name} width="50px" />
@@ -126,4 +149,6 @@ export const addProduct = ({ id, name, price, image, onPress, hasAction }) => (
             hasAction && <Button onClick={e => onPress(id)} bgColor={Theme.secoundary} >{Products.image}, {Products.price} </Button>
         }
     </>
-);*/
+);
+****************************************************************************************
+*/
