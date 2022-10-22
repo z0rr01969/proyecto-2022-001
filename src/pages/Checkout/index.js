@@ -23,19 +23,13 @@ export const Checkout = () => {
 
     //posibles variables usadas en el cuerpo del codigo
     const { addItemToCart } = useCart(); //useContext(CartContext);
-    const addToCartHandler = (idProduct) => {
-        addItemToCart(idProduct);
+    const viewToCartHandler = (props) => {
+        addItemToCart(props);
+        //{props.children}
     }
 
-    const onClickListener = ({ id, name, price, image, onPress, hasAction }) => (
-        <Product>
-            <img src={PRODUCTS.image} alt={PRODUCTS.name} width="50px" />
-            <p>{PRODUCTS.name}</p>
-            <h6>{currencyFormat(PRODUCTS.price)}</h6>
-            {
-                hasAction && <Button onClick={e => onPress(id)} bgColor={Theme.secoundary} >X</Button>
-            }
-        </Product>
+    const onClickListener = ({ item, key }) => (
+        <Product key={key} onPress={viewToCartHandler} hasAction={true} /> 
     );
 
     const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onChange" });
