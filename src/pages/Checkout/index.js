@@ -44,16 +44,42 @@ export const Checkout = () => {
     //retorno de la funcion
     return (
         <Page>
+            <h2>Estos son tus Productos Seleccionados:</h2>
             {/* codigo para tomar los productos seleccionados y mostrados aqui */}
             <ItemCartWrapper>
                 <Product onClick={onClickListener} />
+                <div>
+                    <Button>+</Button>
+                </div>
+                <div>
+                    <Button>-</Button>
+                </div>
+                <div>
+                    <Button>Eliminar Producto</Button>
+                </div>
             </ItemCartWrapper>
+
 
             {/* datos para el pedido y envio de productos */}
             <ItemCartWrapper>
-                <h2>Registrar un Pedido</h2>
+                <CartGrid>
+                    <td>
+                        <tr>
+                            <div>
+                                <h3>I. V. A. ..-(19%)= (Valor !)</h3>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div>
+                                <h3>Precio TOTAL...= (Valor !)</h3>
+                            </div>
+                        </tr>
+                    </td>
+                </CartGrid>
+
                 <form onSubmit={handleSubmit(onSubmitLogin)}>
                     <CartGrid>
+                        <h2>Registra tu Pedido</h2>
                         <FormControl>
                             <FormControlLabel>Nombres y Apellidos</FormControlLabel>
                             <FormControlInput type="text"
@@ -89,28 +115,12 @@ export const Checkout = () => {
                                 (<span>Ingrese solo Numeros</span>)
                             }
                         </FormControl>
-               
+
                         <FormControlActions>
                             <Button disabled={!isValid} type="submit">Registrar</Button>
                         </FormControlActions>
                     </CartGrid>
                 </form>
-                <FormControl>
-                    <CartGrid>
-                        <td>
-                            <tr>
-                                <div>
-                                    <h3>I. V. A. ..-(19%)= (Valor !)</h3>
-                                </div>
-                            </tr>
-                            <tr>
-                                <div>
-                                    <h3>Precio TOTAL...= (Valor !)</h3>
-                                </div>
-                            </tr>
-                        </td>
-                    </CartGrid>
-                </FormControl>
             </ItemCartWrapper>
         </Page>
     );
