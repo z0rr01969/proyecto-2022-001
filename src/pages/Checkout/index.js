@@ -26,24 +26,33 @@ export const Checkout = () => {
     const addToCartHandler = (idProduct) => {
         addItemToCart(idProduct);
     }
+    const onClickListener = ( onClick ) => {
+        if (addToCartHandler > 0) {
+            PRODUCTS.map((item, key) => <Product
+              key={key} {...item}
+              onPress={addToCartHandler}
+              hasAction={true}
+              />)
+        }
+    }
     const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onChange" });
     const onSubmitLogin = (data) => { console.log('data', data); }
 
     //retorno de la funcion
     return (
         <Page>
-
             {/* codigo para tomar los productos seleccionados y mostrados aqui */}
             <ItemCartWrapper>
-                <ProductGrid listener={onclick}>
-                    {
+                <Product onClick={onClickListener} />
+                
+                    {/*{
                         PRODUCTS.map((item, key) => <Product onClick={Products.name}
                             key={key} {...item}
                             onPress={addToCartHandler}
                             hasAction={true}
-                        /> )
-                    }
-                </ProductGrid>
+                        />
+                         )
+                    }*/}
                 <td>
                     <tr>
                         <div>
