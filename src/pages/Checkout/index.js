@@ -29,7 +29,7 @@ export const Checkout = () => {
     }
 
     const onClickListener = ({ item, key }) => (
-        <Product key={key} onPress={viewToCartHandler} hasAction={true} /> 
+        <Product key={key} onPress={viewToCartHandler} hasAction={true} />
     );
 
     const { register, handleSubmit, formState: { errors, isValid } } = useForm({ mode: "onChange" });

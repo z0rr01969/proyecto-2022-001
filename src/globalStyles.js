@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
         font-family: "Lato";
     }
 `;
-
+ 
 export const FormControl = styled.section`
     width: auto;
     display: flex;

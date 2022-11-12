@@ -9,6 +9,7 @@ import {
   FormControlInput,
 } from "../../globalStyles";
 import { useUser } from "../../contexts/UserContext";
+import { httpRequest } from "../../utils/HttpRequest";
 
 //pagina de logeo input-correo y contraseña -validados con boton de ingreso
 export const Login = () => {
@@ -21,7 +22,8 @@ export const Login = () => {
 
   const {setAuthenticate, setUserInfo} = useUser();
   const navigate = useNavigate();
-
+/*
+funcion anterior que se debe modificar...
   const onSubmitLogin = (data) => {
     console.log("data", data);
     if (data.email === "cardenaslufer@gmail.com" && data.password === "196907") {
@@ -36,6 +38,24 @@ export const Login = () => {
       alert("Credenciales NO Validas");
     }
   };
+  */
+
+  const onSubmitLogin = async (data) => {
+    try {
+    const response = await httpRequest({
+      endpoint: "/user/login",
+      body: data,
+    });
+    const [token] = response;
+    setAuthenticate(true);
+    reset();
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
 
   return (
     <Page>
