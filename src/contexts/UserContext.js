@@ -33,3 +33,5 @@ export const UserContextStore = (props) => {
 }
 
 export const useUser = () => useContext(UserContext);
+
+export const useUser = () => useContext(UserContext);

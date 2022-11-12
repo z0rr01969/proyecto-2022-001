@@ -1,101 +1,109 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Page } from "../../components/Page";
+import { useUser } from "../../contexts/UserContext";
 import {
   Button,
   FormControl,
-  FormControlLabel,
-  FormControlActions,
+  FormControLabel,
+  FormControlAction,
   FormControlInput,
 } from "../../globalStyles";
-import { useUser } from "../../contexts/UserContext";
 import { httpRequest } from "../../utils/HttpRequest";
+import {Alert, ALERT_TYPE} from '../../components/Alert';
+import { setToken } from "../../utils/TokenLocalStorage";
 
-//pagina de logeo input-correo y contraseña -validados con boton de ingreso
 export const Login = () => {
   const {
-    register, 
-    handleSubmit, 
-    reset, 
-    formState: {errors, isValid},
-  } = useForm({ mode: "onChange"});
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm({ mode: "onChange" });
 
-  const {setAuthenticate, setUserInfo} = useUser();
+  const { setAuthenticate, setUserInfo } = useUser();
   const navigate = useNavigate();
-/*
-funcion anterior que se debe modificar...
-  const onSubmitLogin = (data) => {
+
+  /*const onSubmitLogin = (data) => {
     console.log("data", data);
-    if (data.email === "cardenaslufer@gmail.com" && data.password === "196907") {
+    // TODO: call request login
+    if (data.email === "j@gmail.com" && data.password === "123456") {
       setAuthenticate(true);
-      setUserInfo({ name: "Fernando", email: "cardenaslufer@gmail.com", phone: "3107911608" });
+      setUserInfo({ name: "juan", email: "j@gmail.com", phone: "555555" });
       reset();
-        setTimeout(() => {
-          //navigate("/");
-          navigate("/products/:idShop");
-        }, 2000);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } else {
-      alert("Credenciales NO Validas");
+      alert("Error credenciales");
     }
-  };
-  */
+  };*/
 
   const onSubmitLogin = async (data) => {
     try {
-    const response = await httpRequest({
-      endpoint: "/user/login",
-      body: data,
-    });
-    const [token] = response;
-    setAuthenticate(true);
-    reset();
-    setTimeout(() => {
-      navigate("/");
-    }, 2000);
+      const response = await httpRequest({
+        endpoint: "/users/login",
+        body: data
+      });
+      const {token} = response.data;
+      setToken(token);
+      //setAuthenticate(true);
+      reset();
+      Alert({
+        title: "Bienvenido",
+        description: "Acceso validado",
+        type: ALERT_TYPE.SUCCESS,
+        callback: () => { 
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
+        }
+      });
     } catch (error) {
       console.log('error', error);
+      Alert({
+          title: "Error", 
+          description: "Credenciales invalidas", 
+          type: ALERT_TYPE.ERROR
+      });
     }
   }
 
   return (
     <Page>
-      <h1>Iniciar Sesion</h1>
+      <h1>Iniciar Sesión</h1>
       <form onSubmit={handleSubmit(onSubmitLogin)}>
         <FormControl>
-          <FormControlLabel>Correo electronico</FormControlLabel>
-          <FormControlInput type="email"
-          {...register("email",{required: true, pattern: /\S+@\S+\.\S+/})}
+          <FormControLabel>Correo electrónico</FormControLabel>
+          <FormControlInput
+            type="email"
+            {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })}
           />
-          
-          {/*captura el error y no se inicializa, en este caso se coloca (?) para evitar la panatalla blanca.
-          pattern valida el formato del correo electronico*/}
-
-          { errors.email?.type === "required" && 
-          (<span>Este campo es obligatorio</span>)
-          }
-          { errors.email?.type === "pattern" && 
-          (<span>Ingrese un Correo valido</span>)
-          }
+          {errors.email?.type === "required" && (
+            <span>Este campo es obligatorio</span>
+          )}
+          {errors.email?.type === "pattern" && (
+            <span>Ingrese un correo válido</span>
+          )}
         </FormControl>
-        
+
         <FormControl>
-          <FormControlLabel>Contraseña</FormControlLabel>
-          <FormControlInput type="password" 
-          {...register("password",{required: true})}
+          <FormControLabel>Contraseña</FormControLabel>
+          <FormControlInput
+            type="password"
+            {...register("password", { required: true })}
           />
-          { errors.password?.type === "required" && 
-          (<span>La contraseña es obligatoria</span>)
-          }
+          {errors.password?.type === "required" && (
+            <span>La contraseña es obligatoria</span>
+          )}
         </FormControl>
 
-        <FormControlActions>
-          <Button disabled={!isValid} type="submit">Ingresar</Button>
-        </FormControlActions>
-
-        {/* prueba para verificar la validez del campo. { isValid ? "Es Valido" : "No es Valido" }
-        */}
-        
+        <FormControlAction>
+          <Button disabled={!isValid} type="submit">
+            Ingresar
+          </Button>
+        </FormControlAction>
       </form>
     </Page>
   );
-}
+};
